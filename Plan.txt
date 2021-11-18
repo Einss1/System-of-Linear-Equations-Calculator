@@ -1,0 +1,8 @@
+-Find a way to connect the java code with the database
+
+*RegistrationPage
+-Find a way to send data from the registration page to the database.
+
+*LoginPage
+-Find a way to read data from database and verify it.
+-Send the user to a new screen where there is gonna be a profile and a calculator button.
