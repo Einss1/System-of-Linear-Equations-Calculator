@@ -1,8 +1,16 @@
--Find a way to connect the java code with the database
+* - not fundamental
 
-*RegistrationPage
--Find a way to send data from the registration page to the database.
 
-*LoginPage
--Find a way to read data from database and verify it.
--Send the user to a new screen where there is gonna be a profile and a calculator button.
+ RegistrationPage
+
+
+-Create a reset (clear button) *
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ LoginPage
+
+-Send the user to a new screen where there is gonna be a profile and a calculator button (for users) and a profile, list of users, remove users and 
+review operations (for admin).
+
+
+-Create a reset (clear button) *
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -5,16 +5,20 @@
  */
 package ca_matrices;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -29,16 +33,11 @@ public class LoginPage implements ActionListener {
     JPasswordField userPasswordField = new JPasswordField();
     JLabel userIDLabel = new JLabel("userID:");
     JLabel userPasswordLabel = new JLabel("password:");
-    JLabel messageLabel = new JLabel();
-    HashMap<String,String> logininfo = new HashMap<String,String>();
     
     LoginPage() {
         
         userIDLabel.setBounds(50,100,75,25);
         userPasswordLabel.setBounds(50,150,75,25);
-        
-        messageLabel.setBounds(125,250,250,35);
-        messageLabel.setFont(new Font(null,Font.ITALIC,25));
         
         userIDField.setBounds(125,100,200,25);
         userPasswordField.setBounds(125,150,200,25);
@@ -53,7 +52,6 @@ public class LoginPage implements ActionListener {
         
         frame.add(userIDLabel);
         frame.add(userPasswordLabel);
-        frame.add(messageLabel);
         frame.add(userIDField);
         frame.add(userPasswordField);
         frame.add(loginButton);
@@ -73,29 +71,37 @@ public class LoginPage implements ActionListener {
         }
         
         if(e.getSource()==loginButton) {
-            
-            String userID = userIDField.getText();
-            String password = String.valueOf(userPasswordField.getPassword());
-            
-                    
-            if(logininfo.containsKey(userID)) {
-                if(logininfo.get(userID).equals(password)){
-                    messageLabel.setForeground(Color.green);
-                    messageLabel.setText("Login successful!");
-                    frame.dispose();
-                    WelcomePage welcomePage = new WelcomePage(userID);
-                }
-                else {
-                    messageLabel.setForeground(Color.red);
-                    messageLabel.setText("Wrong password!");
-                }
+            try {
+                PreparedStatement st;
+                ResultSet rs;
                 
-            }
-            else {
-                messageLabel.setForeground(Color.red);
-                messageLabel.setText("Username not found!");
-            }       
+                
+                String username = userIDField.getText();
+                String password = String.valueOf(userPasswordField.getPassword());
+                
+                String query = "SELECT * FROM users_db WHERE username = ? AND password = ?";
+                            
+                st = My_CNX.getConnection().prepareStatement(query);
+                
+                st.setString(1, username);
+                st.setString(2, password);
+                
+                rs = st.executeQuery();
+                
+                if(rs.next()){
+                    if (username = "CCT"){
+                       frame.dispose(); 
+                    }
+                    else {
+                        frame.dispose();
+                    }
+                    
+                }else {
+                    JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error",2);
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            }                           
+        }
     }
-}
-    
 }

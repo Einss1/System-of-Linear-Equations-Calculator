@@ -4,15 +4,19 @@
  * and open the template in the editor.
  */
 package ca_matrices;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author Luan
@@ -29,8 +33,40 @@ public class RegistrationPage implements ActionListener {
     JLabel userlNameLabel = new JLabel("Last Name");
     JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
-    HashMap<String,String> logininfo = new HashMap<String,String>();
+   
     
+    public boolean verifyFields() {
+        String fname = userfNameField.getText();
+        String lname = userlNameField.getText();
+        String uname = userIDField.getText(); 
+        String password = String.valueOf(userPasswordField); 
+        
+        if (fname.trim().equals("") || lname.trim().equals("") || uname.trim().equals("") || password.trim().equals("") ) {
+            JOptionPane.showMessageDialog(null, "One or more fields are empty!");
+        }     
+        return true;
+    }
+    
+    public boolean checkUsername(String username) throws SQLException{
+        
+        PreparedStatement st;
+        ResultSet rs;
+        boolean username_exist = false;
+        
+        String query = "SELECT * FROM users_db WHERE username = ?";
+        
+        st = My_CNX.getConnection().prepareStatement(query);
+        st.setString(1, username);
+        rs = st.executeQuery();
+        
+        if(rs.next()){
+            username_exist = true;
+            JOptionPane.showMessageDialog(null,"Username already taken!","Username failed",2);
+        }
+        
+        return username_exist;
+        
+    }
     RegistrationPage() {
         
         userfNameLabel.setBounds(50,100,75,25);
@@ -65,10 +101,47 @@ public class RegistrationPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== registerButton){
-            //Find code to send data to database
             
-            frame.dispose();
-            LoginPage loginPage = new LoginPage();
+            String fname = userfNameField.getText();
+            String lname = userlNameField.getText();
+            String username = userIDField.getText();
+            String password = String.valueOf(userPasswordField.getPassword());
+            
+            if(verifyFields()){
+                try {
+                    if(!checkUsername(username)){
+                        PreparedStatement ps;
+                        ResultSet rs;
+                        String registerUserQuery = "INSERT INTO users_db (username, fname, lname, password) VALUES (?,?,?,?)";
+                        
+                        try {
+                            
+                            ps = My_CNX.getConnection().prepareStatement(registerUserQuery);
+                            ps.setString(1, username);
+                            ps.setString(2, fname);
+                            ps.setString(3, lname);
+                            ps.setString(4, password);
+                            
+                            
+                            if(ps.executeUpdate() != 0) {
+                                JOptionPane.showMessageDialog(null, "Your account has been created successfully!");
+                                frame.dispose();
+                                LoginPage loginPage = new LoginPage();  
+                            }else{
+                                JOptionPane.showMessageDialog(null, "Error!");
+                            }
+                            
+                            
+                        } catch (SQLException ex) {
+                            Logger.getLogger(RegistrationPage.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        
+                    }
+                } catch (SQLException ex) {                    
+                    Logger.getLogger(RegistrationPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            
         }
     } 
 }
