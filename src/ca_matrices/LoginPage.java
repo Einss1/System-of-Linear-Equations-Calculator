@@ -89,14 +89,14 @@ public class LoginPage implements ActionListener {
                 rs = st.executeQuery();
                 
                 if(rs.next()){
-                    if (username = "CCT"){
-                       frame.dispose(); 
-                    }
-                    else {
+                    if ("CCT".equals(username)) {
                         frame.dispose();
-                    }
-                    
-                }else {
+                        AdminPage adminPage = new AdminPage();
+                    } else {
+                        frame.dispose();
+                        UserPage userPage = new UserPage();
+                    }                                  
+                } else {
                     JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error",2);
                 }
             } catch (SQLException ex) {
