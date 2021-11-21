@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 /**
  *
@@ -18,9 +19,10 @@ public class UserPage implements ActionListener {
     JFrame frame = new JFrame();
     JButton modifyProfileButton = new JButton("Modify profile");
     JButton calculatorButton = new JButton("Calculator");
+    JTextField userIDField = new JTextField();
     
-    UserPage() {
-        
+    UserPage(String userID) {
+        userIDField.setText(userID);
         modifyProfileButton.setBounds(125,75,150,25);
         calculatorButton.setBounds(125,125,150,25);
         
@@ -42,7 +44,9 @@ public class UserPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== modifyProfileButton){
-            
+            String userID = userIDField.getText();
+            frame.dispose();
+            ModifyProfile_dummy modifyPage_dummy = new ModifyProfile_dummy(userID);
         }
         else if (e.getSource()== calculatorButton){
             

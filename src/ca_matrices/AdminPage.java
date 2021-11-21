@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -20,9 +22,11 @@ public class AdminPage implements ActionListener {
     JButton userListButton = new JButton("User list");
     JButton removeUsersButton = new JButton("Remove users");
     JButton reviewOperationsButton = new JButton("Review Operations");
+    JTextField userIDField = new JTextField();
     
     
-    AdminPage(){
+    AdminPage(String userID) {
+    userIDField.setText(userID);
     modifyProfileButton.setBounds(125,75,150,25);
     userListButton.setBounds(125,125,150,25);
     removeUsersButton.setBounds(125,175,150,25);
@@ -48,10 +52,13 @@ public class AdminPage implements ActionListener {
     frame.setVisible(true);
     
     }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()== modifyProfileButton){
-            
+            String userID = userIDField.getText();
+            frame.dispose();
+            ModifyProfile_dummy modifyPage_dummy = new ModifyProfile_dummy(userID);
         }
         else if (e.getSource()== userListButton){
             

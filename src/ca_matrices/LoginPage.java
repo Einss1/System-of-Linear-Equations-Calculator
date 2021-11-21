@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import java.lang.String;
 
 
 /**
@@ -34,6 +35,7 @@ public class LoginPage implements ActionListener {
     JLabel userIDLabel = new JLabel("userID:");
     JLabel userPasswordLabel = new JLabel("password:");
     
+
     LoginPage() {
         
         userIDLabel.setBounds(50,100,75,25);
@@ -61,7 +63,7 @@ public class LoginPage implements ActionListener {
         frame.setLayout(null);
         frame.setVisible(true);
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         
@@ -75,7 +77,6 @@ public class LoginPage implements ActionListener {
                 PreparedStatement st;
                 ResultSet rs;
                 
-                
                 String username = userIDField.getText();
                 String password = String.valueOf(userPasswordField.getPassword());
                 
@@ -85,17 +86,19 @@ public class LoginPage implements ActionListener {
                 
                 st.setString(1, username);
                 st.setString(2, password);
-                
                 rs = st.executeQuery();
                 
-                if(rs.next()){
-                    if ("CCT".equals(username)) {
-                        frame.dispose();
-                        AdminPage adminPage = new AdminPage();
-                    } else {
-                        frame.dispose();
-                        UserPage userPage = new UserPage();
-                    }                                  
+                if(rs.next()){ 
+                    int admin = rs.getInt("admin"); 
+                    int id = rs.getInt("id");
+                    String userID = Integer.toString(id);
+                        if (admin == 1) {
+                            frame.dispose();
+                            AdminPage_dummy adminPage_dummy = new AdminPage_dummy(userID);
+                        } else {
+                            frame.dispose();
+                            UserPage_dummy userPage_dummy = new UserPage_dummy(userID);
+                        } 
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error",2);
                 }
