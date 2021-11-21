@@ -135,22 +135,63 @@ public class ModifyProfile implements ActionListener {
                         frame.dispose();
                         LoginPage loginPage = new LoginPage();
                     }
-                    else if ((lNameField.getText().isEmpty()) && (passwordField.getPassword().length == 0 ) ) {
+                    else if ((userNameField.getText().isEmpty()) && (fNameField.getText().isEmpty()) ) {
                         PreparedStatement stUpdate;
-                        String username = String.valueOf(userNameField.getText());
-                        String fname = String.valueOf(fNameField.getText());
-                        String queryUpdate = "UPDATE users_db SET username = ?, fname = ? WHERE id = ?";
+                        String lname = String.valueOf(lNameField.getText());
+                        String password = String.valueOf(passwordField.getPassword());
+                        String queryUpdate = "UPDATE users_db SET lname = ?, password = ? WHERE id = ?";
                         stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
-                        stUpdate.setString(1, username);
-                        stUpdate.setString(2, fname);
+                        stUpdate.setString(1, lname);
+                        stUpdate.setString(2, password);
                         stUpdate.setString(3, userID);
                         stUpdate.executeUpdate();  
-                        JOptionPane.showMessageDialog(null, "Username and first name updated!");
+                        JOptionPane.showMessageDialog(null, "Last name and password updated!");
                         frame.dispose();
                         LoginPage loginPage = new LoginPage();
                     }
-                    /**
-                    else if ((fNameField.getText().isEmpty()) && (passwordField.getPassword().length == 0 ) ) {
+                    else if ((userNameField.getText().isEmpty()) && (lNameField.getText().isEmpty()) ) {
+                        PreparedStatement stUpdate;
+                        String password = String.valueOf(passwordField.getPassword());
+                        String fname = String.valueOf(fNameField.getText());
+                        String queryUpdate = "UPDATE users_db SET password = ?, fname = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, password);
+                        stUpdate.setString(2, fname);
+                        stUpdate.setString(3, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "First name and password updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if ((userNameField.getText().isEmpty()) && (passwordField.getPassword().length == 0)) {
+                        PreparedStatement stUpdate;
+                        String fname = String.valueOf(fNameField.getText());
+                        String lname = String.valueOf(lNameField.getText());
+                        String queryUpdate = "UPDATE users_db SET lname = ?, fname = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, lname);
+                        stUpdate.setString(2, fname);
+                        stUpdate.setString(3, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "First name and last name updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if ((fNameField.getText().isEmpty()) && (lNameField.getText().isEmpty())) {
+                        PreparedStatement stUpdate;
+                        String username = String.valueOf(userNameField.getText());
+                        String password = String.valueOf(passwordField.getPassword());
+                        String queryUpdate = "UPDATE users_db SET username = ?, password = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, username);
+                        stUpdate.setString(2, password);
+                        stUpdate.setString(3, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "Username and password updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if ((fNameField.getText().isEmpty()) && (passwordField.getPassword().length == 0)) {
                         PreparedStatement stUpdate;
                         String username = String.valueOf(userNameField.getText());
                         String lname = String.valueOf(lNameField.getText());
@@ -161,8 +202,90 @@ public class ModifyProfile implements ActionListener {
                         stUpdate.setString(3, userID);
                         stUpdate.executeUpdate();  
                         JOptionPane.showMessageDialog(null, "Username and last name updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
                     }
-                    **/
+                    else if ((lNameField.getText().isEmpty()) && (passwordField.getPassword().length == 0)) {
+                        PreparedStatement stUpdate;
+                        String fname = String.valueOf(fNameField.getText());
+                        String username = String.valueOf(userNameField.getText());
+                        String queryUpdate = "UPDATE users_db SET username = ?, fname = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, username);
+                        stUpdate.setString(2, fname);
+                        stUpdate.setString(3, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "Username and First name updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if (userNameField.getText().isEmpty()) {
+                        PreparedStatement stUpdate;
+                        String fname = String.valueOf(fNameField.getText());
+                        String lname = String.valueOf(lNameField.getText());
+                        String password = String.valueOf(passwordField.getPassword());
+                        String queryUpdate = "UPDATE users_db SET fname = ?, lname = ?, password = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, fname);
+                        stUpdate.setString(2, lname);
+                        stUpdate.setString(3, password);
+                        stUpdate.setString(4, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "First name, last name and password updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if (fNameField.getText().isEmpty()) {
+                        PreparedStatement stUpdate;
+                        String username = String.valueOf(userNameField.getText());
+                        String lname = String.valueOf(lNameField.getText());
+                        String password = String.valueOf(passwordField.getPassword());
+                        String queryUpdate = "UPDATE users_db SET username = ?, lname = ?, password = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, username);
+                        stUpdate.setString(2, lname);
+                        stUpdate.setString(3, password);
+                        stUpdate.setString(4, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "Username, last name and password updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if (lNameField.getText().isEmpty()) {
+                        PreparedStatement stUpdate;
+                        String username = String.valueOf(userNameField.getText());
+                        String fname = String.valueOf(fNameField.getText());
+                        String password = String.valueOf(passwordField.getPassword());                        
+                        String queryUpdate = "UPDATE users_db SET username = ?, fname = ?, password = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, username);
+                        stUpdate.setString(2, fname);
+                        stUpdate.setString(3, password);
+                        stUpdate.setString(4, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "Username, first name and password updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else if (passwordField.getPassword().length == 0) {
+                        PreparedStatement stUpdate;
+                        String username = String.valueOf(userNameField.getText());
+                        String fname = String.valueOf(fNameField.getText());
+                        String lname = String.valueOf(lNameField.getText());
+                        String queryUpdate = "UPDATE users_db SET username = ?, fname = ?, lname = ? WHERE id = ?";
+                        stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                        stUpdate.setString(1, username);
+                        stUpdate.setString(2, fname);
+                        stUpdate.setString(3, lname);
+                        stUpdate.setString(4, userID);
+                        stUpdate.executeUpdate();  
+                        JOptionPane.showMessageDialog(null, "Password updated!");
+                        frame.dispose();
+                        LoginPage loginPage = new LoginPage();
+                    }
+                    else {
+                        JOptionPane.showMessageDialog(null, "Something went wrong, please try again!");
+                    }                           
                 }          
             } catch (SQLException ex) {
                 Logger.getLogger(ModifyProfile.class.getName()).log(Level.SEVERE, null, ex);

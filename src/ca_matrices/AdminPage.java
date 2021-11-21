@@ -61,10 +61,12 @@ public class AdminPage implements ActionListener {
             ModifyProfile_dummy modifyPage_dummy = new ModifyProfile_dummy(userID);
         }
         else if (e.getSource()== userListButton){
-            
+            frame.dispose();
+            UserList userList = new UserList();
         }
         else if (e.getSource()== removeUsersButton){
-            
+            frame.dispose();
+            RemoveUser removeUser = new RemoveUser();
         }
         else if (e.getSource()== reviewOperationsButton){
             

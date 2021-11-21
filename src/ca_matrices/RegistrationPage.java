@@ -42,9 +42,11 @@ public class RegistrationPage implements ActionListener {
         String password = String.valueOf(userPasswordField); 
         
         if (fname.trim().equals("") || lname.trim().equals("") || uname.trim().equals("") || password.trim().equals("") ) {
-            JOptionPane.showMessageDialog(null, "One or more fields are empty!");
+            return false;
         }     
-        return true;
+        else {
+            return true;
+        }
     }
     
     public boolean checkUsername(String username) throws SQLException{
@@ -67,6 +69,7 @@ public class RegistrationPage implements ActionListener {
         return username_exist;
         
     }
+    
     RegistrationPage() {
         
         userfNameLabel.setBounds(50,100,75,25);
@@ -107,7 +110,7 @@ public class RegistrationPage implements ActionListener {
             String username = userIDField.getText();
             String password = String.valueOf(userPasswordField.getPassword());
             
-            if(verifyFields()){
+            if(verifyFields() == true){
                 try {
                     if(!checkUsername(username)){
                         PreparedStatement ps;
@@ -140,6 +143,8 @@ public class RegistrationPage implements ActionListener {
                 } catch (SQLException ex) {                    
                     Logger.getLogger(RegistrationPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
+            } else {
+                JOptionPane.showMessageDialog(null, "One or more fields are empty!");
             }
             
         }
