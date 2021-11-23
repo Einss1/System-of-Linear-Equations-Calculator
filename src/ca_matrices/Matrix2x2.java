@@ -26,6 +26,7 @@ import java.util.logging.Logger;
 public class Matrix2x2 implements ActionListener {
 
     JFrame frame = new JFrame();
+    JButton backButton = new JButton("Back");
     JButton determinantButton = new JButton("Determinant A");
     JButton inverseButton = new JButton("Inverse A");
     JButton finalButton = new JButton("Final result");
@@ -35,6 +36,8 @@ public class Matrix2x2 implements ActionListener {
     JTextField dField = new JTextField();
     JTextField eField = new JTextField();
     JTextField fField = new JTextField();
+    JTextField userIDField = new JTextField();
+    JTextField adminCheckField = new JTextField();
     JLabel resultLabel1 = new JLabel("Determinant");
     JLabel resultLabel11 = new JLabel("");
     JLabel resultLabel2 = new JLabel("Inverse");
@@ -91,7 +94,10 @@ public class Matrix2x2 implements ActionListener {
         
     }
     
-    Matrix2x2(String userID) {
+    Matrix2x2(String userID, String adminCheck) {
+        
+        adminCheckField.setText(adminCheck);
+        userIDField.setText(userID);
         
         equalLabel1.setBounds(210,50,25,25);
         equalLabel2.setBounds(210,80,75,25);
@@ -125,6 +131,10 @@ public class Matrix2x2 implements ActionListener {
         finalButton.setFocusable(false);
         finalButton.addActionListener(this);
         
+        backButton.setBounds(25,15,100,25);
+        backButton.setFocusable(false);
+        backButton.addActionListener(this);
+        
         frame.add(equalLabel1);
         frame.add(equalLabel2);
         frame.add(resultLabel1);
@@ -144,10 +154,12 @@ public class Matrix2x2 implements ActionListener {
         frame.add(determinantButton);
         frame.add(inverseButton);
         frame.add(finalButton);
+        frame.add(backButton);
         
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         aField.setText("var a");
         bField.setText("var b");
@@ -157,11 +169,17 @@ public class Matrix2x2 implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        String userID = userIDField.getText();
+        String adminCheck = adminCheckField.getText();
         if(e.getSource()== determinantButton){
             resultLabel11.setText(DeterminantA());
             }
         else if (e.getSource()== inverseButton){
             InverseA();
+        }
+        else if (e.getSource()== backButton){
+            frame.dispose();
+            CalculatorMenu calculatorMenu = new CalculatorMenu(userID, adminCheck);
         }
         
     }

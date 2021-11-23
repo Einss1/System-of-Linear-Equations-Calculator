@@ -17,26 +17,34 @@ import javax.swing.JTextField;
  */
 public class UserPage implements ActionListener {
     JFrame frame = new JFrame();
+    JButton loginButton = new JButton("Back to login");
     JButton modifyProfileButton = new JButton("Modify profile");
     JButton calculatorButton = new JButton("Calculator");
     JTextField userIDField = new JTextField();
+    JTextField adminCheckField = new JTextField();
     
-    UserPage(String userID) {
+    UserPage(String userID, String adminCheck) {
+        adminCheckField.setText(adminCheck);
         userIDField.setText(userID);
+        loginButton.setBounds(25,25,125,25);
         modifyProfileButton.setBounds(125,75,150,25);
         calculatorButton.setBounds(125,125,150,25);
         
+        loginButton.setFocusable(false);
         modifyProfileButton.setFocusable(false);
         calculatorButton.setFocusable(false);
         
+        loginButton.addActionListener(this);
         modifyProfileButton.addActionListener(this);
         calculatorButton.addActionListener(this);
         
+        frame.add(loginButton);
         frame.add(modifyProfileButton);
         frame.add(calculatorButton);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         
     }
@@ -44,13 +52,18 @@ public class UserPage implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String userID = userIDField.getText();
+        String adminCheck = adminCheckField.getText();
         if(e.getSource()== modifyProfileButton){
             frame.dispose();
-            ModifyProfile modifyPage = new ModifyProfile(userID);
+            ModifyProfile modifyPage = new ModifyProfile(userID, adminCheck);
         }
         else if (e.getSource()== calculatorButton){
             frame.dispose();
-            CalculatorMenu calculatorMenu = new CalculatorMenu(userID);
+            CalculatorMenu calculatorMenu = new CalculatorMenu(userID, adminCheck);
+        }
+        else if (e.getSource()== loginButton){
+            frame.dispose();
+            LoginPage loginPage = new LoginPage();
         }
     }
 }

@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 public class RegistrationPage implements ActionListener {
     
     JFrame frame = new JFrame();
+    JButton clearButton = new JButton("Clear");
     JButton registerButton = new JButton("Register");
     JTextField userfNameField = new JTextField();
     JTextField userlNameField = new JTextField();
@@ -82,10 +83,13 @@ public class RegistrationPage implements ActionListener {
         userIDField.setBounds(125,200,200,25);
         userPasswordField.setBounds(125,250,200,25);
         
-        registerButton.setBounds(170,300,100,25);
+        clearButton.setBounds(125,300,100,25);
+        clearButton.setFocusable(false);
+        clearButton.addActionListener(this);
+        registerButton.setBounds(225,300,100,25);
         registerButton.setFocusable(false);
         registerButton.addActionListener(this);
-        
+
         frame.add(userfNameLabel);
         frame.add(userlNameLabel);
         frame.add(userIDLabel);
@@ -94,10 +98,12 @@ public class RegistrationPage implements ActionListener {
         frame.add(userlNameField);
         frame.add(userIDField);
         frame.add(userPasswordField);
+        frame.add(clearButton);
         frame.add(registerButton);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
@@ -145,8 +151,13 @@ public class RegistrationPage implements ActionListener {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "One or more fields are empty!");
-            }
-            
+            }           
+        }
+        else if (e.getSource()== clearButton) {
+            userfNameField.setText("");
+            userlNameField.setText("");
+            userIDField.setText("");
+            userPasswordField.setText("");
         }
     } 
 }

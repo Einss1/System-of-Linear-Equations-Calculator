@@ -30,6 +30,7 @@ public class LoginPage implements ActionListener {
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Login");
     JButton registerButton = new JButton("Register");
+    JButton clearButton = new JButton("Clear");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
     JLabel userIDLabel = new JLabel("userID:");
@@ -52,15 +53,21 @@ public class LoginPage implements ActionListener {
         registerButton.setFocusable(false);
         registerButton.addActionListener(this);
         
+        clearButton.setBounds(175,250,100,25);
+        clearButton.setFocusable(false);
+        clearButton.addActionListener(this);
+        
         frame.add(userIDLabel);
         frame.add(userPasswordLabel);
         frame.add(userIDField);
         frame.add(userPasswordField);
         frame.add(loginButton);
         frame.add(registerButton);
+        frame.add(clearButton);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
     
@@ -92,12 +99,13 @@ public class LoginPage implements ActionListener {
                     int admin = rs.getInt("admin"); 
                     int id = rs.getInt("id");
                     String userID = Integer.toString(id);
+                    String adminCheck = Integer.toString(admin);
                         if (admin == 1) {
                             frame.dispose();
-                            AdminPage adminPage = new AdminPage(userID);
+                            AdminPage adminPage = new AdminPage(userID, adminCheck);
                         } else {
                             frame.dispose();
-                            UserPage userPage = new UserPage(userID);
+                            UserPage userPage = new UserPage(userID, adminCheck);
                         } 
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error",2);
@@ -105,6 +113,10 @@ public class LoginPage implements ActionListener {
             } catch (SQLException ex) {
                 Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
             }                           
+        }
+        else if (e.getSource()== clearButton) {
+            userIDField.setText("");
+            userPasswordField.setText("");
         }
     }
 }
