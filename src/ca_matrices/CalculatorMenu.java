@@ -15,42 +15,44 @@ import javax.swing.JTextField;
  *
  * @author Luan
  */
-public class UserPage implements ActionListener {
+public class CalculatorMenu implements ActionListener {
+
     JFrame frame = new JFrame();
-    JButton modifyProfileButton = new JButton("Modify profile");
-    JButton calculatorButton = new JButton("Calculator");
+    JButton x2Button = new JButton("2x2 equation");
+    JButton x3Button = new JButton("3x3 equation");
     JTextField userIDField = new JTextField();
     
-    UserPage(String userID) {
+    CalculatorMenu(String userID) {
         userIDField.setText(userID);
-        modifyProfileButton.setBounds(125,75,150,25);
-        calculatorButton.setBounds(125,125,150,25);
+        x2Button.setBounds(125,75,150,25);
+        x3Button.setBounds(125,125,150,25);
         
-        modifyProfileButton.setFocusable(false);
-        calculatorButton.setFocusable(false);
+        x3Button.setFocusable(false);
+        x3Button.setFocusable(false);
         
-        modifyProfileButton.addActionListener(this);
-        calculatorButton.addActionListener(this);
+        x2Button.addActionListener(this);
+        x3Button.addActionListener(this);
         
-        frame.add(modifyProfileButton);
-        frame.add(calculatorButton);
+        frame.add(x2Button);
+        frame.add(x3Button);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(420,420);
         frame.setLayout(null);
         frame.setVisible(true);
         
     }
-
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         String userID = userIDField.getText();
-        if(e.getSource()== modifyProfileButton){
+        if(e.getSource()== x2Button){
             frame.dispose();
-            ModifyProfile modifyPage = new ModifyProfile(userID);
+            Matrix2x2 x2Menu = new Matrix2x2(userID);
         }
-        else if (e.getSource()== calculatorButton){
+        else if (e.getSource()== x3Button){
             frame.dispose();
-            CalculatorMenu calculatorMenu = new CalculatorMenu(userID);
+            Matrix3x3 x3Menu = new Matrix3x3(userID);
         }
     }
+    
 }

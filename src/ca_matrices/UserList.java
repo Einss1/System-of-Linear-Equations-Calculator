@@ -5,7 +5,6 @@
  */
 package ca_matrices;
 
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -13,17 +12,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.naming.directory.SearchResult;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -67,9 +58,7 @@ public class UserList implements ActionListener{
                 rs = st.executeQuery();
                 
                 while (rs.next()) {
- 
-
-                
+        
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);

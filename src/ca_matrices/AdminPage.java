@@ -58,7 +58,7 @@ public class AdminPage implements ActionListener {
         if(e.getSource()== modifyProfileButton){
             String userID = userIDField.getText();
             frame.dispose();
-            ModifyProfile_dummy modifyPage_dummy = new ModifyProfile_dummy(userID);
+            ModifyProfile modifyPage = new ModifyProfile(userID);
         }
         else if (e.getSource()== userListButton){
             frame.dispose();

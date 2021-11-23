@@ -94,10 +94,10 @@ public class LoginPage implements ActionListener {
                     String userID = Integer.toString(id);
                         if (admin == 1) {
                             frame.dispose();
-                            AdminPage_dummy adminPage_dummy = new AdminPage_dummy(userID);
+                            AdminPage adminPage = new AdminPage(userID);
                         } else {
                             frame.dispose();
-                            UserPage_dummy userPage_dummy = new UserPage_dummy(userID);
+                            UserPage userPage = new UserPage(userID);
                         } 
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid Username / Password", "Login Error",2);
