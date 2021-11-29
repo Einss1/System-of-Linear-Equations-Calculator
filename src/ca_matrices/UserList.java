@@ -5,6 +5,9 @@
  */
 package ca_matrices;
 
+import com.mysql.cj.xdevapi.Statement;
+import com.sun.jdi.connect.spi.Connection;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
@@ -15,7 +18,19 @@ import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -24,67 +39,78 @@ import javax.swing.JTextField;
 public class UserList implements ActionListener{
 
     JFrame frame = new JFrame();
-    JButton userListButton = new JButton("Fetch");
     JButton backButton = new JButton("Back");
-    JLabel userIDLabel = new JLabel("");
-    JLabel userNameLabel = new JLabel("");
     JTextField userIDField = new JTextField();
     JTextField adminCheckField = new JTextField();
-
+    
+    
      UserList(String userID, String adminCheck) {
-        
-        adminCheckField.setText(adminCheck);
-        userIDField.setText(userID); 
+        try {
          
-        userIDLabel.setBounds(50,100,200,200); 
-        userNameLabel.setBounds(100,100,200,200);
+            PreparedStatement st;
+            ResultSet rs;
+        
+            String query = "SELECT * FROM users_db";
+        
+            st = My_CNX.getConnection().prepareStatement(query);
+            rs = st.executeQuery();
+    
+    
+            String columns[] = {"ID", "Username", "First Name", "Last Name", "Password"};
+            String data[][] = new String[10][5];
+    
+            int i = 0;
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String username = rs.getString("username");
+                String fname = rs.getString("fname");
+                String lname = rs.getString("lname");
+                String password = rs.getString("password");
+                data[i][0] = id + "";
+                data[i][1] = username;
+                data[i][2] = fname;
+                data[i][3] = lname;
+                data[i][4] = password;
+                i++;
+            }
+    
+            DefaultTableModel model = new DefaultTableModel(data, columns);
+            JTable table = new JTable(model);
+            table.setShowGrid(true);
+            table.setShowVerticalLines(true);
+            JScrollPane pane = new JScrollPane(table);
+            JPanel panel = new JPanel();
+            panel.add(pane);
+            panel.setBounds(0, 50, 520, 200);
+            frame.add(panel);
+      
+            adminCheckField.setText(adminCheck);
+            userIDField.setText(userID); 
 
-        backButton.setBounds(25,15,100,25);
-        backButton.setFocusable(false);
-        backButton.addActionListener(this);
+            backButton.setBounds(25,15,100,25);
+            backButton.setFocusable(false);
+            backButton.addActionListener(this);
         
-        userListButton.setBounds(170,300,100,25);
-        userListButton.setFocusable(false);
-        userListButton.addActionListener(this);
-        
-        frame.add(userNameLabel);
-        frame.add(userListButton);
-        frame.add(backButton);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(420,420);
-        frame.setLayout(null);
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
+            frame.setSize(520, 420);
+            frame.setTitle("User List");
+            frame.add(backButton);
+            frame.setLayout(null);
+            frame.setLocationRelativeTo(null);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setVisible(true);
+    } catch(SQLException e) {
+        JOptionPane.showMessageDialog(null, "Something went wrong, please try again!");
     }
+}
     
     @Override
     public void actionPerformed(ActionEvent e) {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
-        if(e.getSource()== userListButton){
-            try {
-                PreparedStatement st;
-                ResultSet rs;
-                
-                String Query = "SELECT * FROM users_db";
-                st = My_CNX.getConnection().prepareStatement(Query);
-                
-                
-                rs = st.executeQuery();
-                
-                while (rs.next()) {
-        
-                }
-            } catch (SQLException ex) {
-                Logger.getLogger(UserList.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        else if(e.getSource() == backButton){
+       
+        if(e.getSource() == backButton){
             frame.dispose();
             AdminPage adminPage = new AdminPage(userID, adminCheck);
         }
-    }
-    
-    
-    
+    }    
 }

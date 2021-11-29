@@ -6,24 +6,33 @@
 package ca_matrices;
 
 import java.awt.Font;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 /**
  *
  * @author Luan
  */
 public class Matrix2x2 implements ActionListener {
-
+    
     JFrame frame = new JFrame();
     JButton backButton = new JButton("Back");
-    JButton determinantButton = new JButton("Determinant A");
-    JButton inverseButton = new JButton("Inverse A");
-    JButton finalButton = new JButton("Final result");
+    JButton resultButton = new JButton("Result");
+    JButton storeDataButton = new JButton("Save");
     JButton clearButton = new JButton("Clear");
     JTextField aField = new JTextField();
     JTextField bField = new JTextField();
@@ -57,9 +66,6 @@ public class Matrix2x2 implements ActionListener {
     JLabel x = new JLabel("x");
     JLabel y = new JLabel("y");
     
-
-   
-    
     public String DeterminantA() {
         int a = Integer.parseInt(aField.getText());
         int b = Integer.parseInt(bField.getText()); 
@@ -69,7 +75,6 @@ public class Matrix2x2 implements ActionListener {
         int determinant = (a * d) - (b * c);
         String dA = String.valueOf(determinant);
         return dA;
-        
     }
     
     public String InverseA(){
@@ -98,9 +103,7 @@ public class Matrix2x2 implements ActionListener {
         resultLabel23.setText(z2);
         resultLabel22.setText(z3);
         resultLabel24.setText(z4);
-        String result = null;
-        return z1 + z2 + z3 + z4;
-        
+        return null;
     }
     
     public String FinalResult() {
@@ -187,17 +190,13 @@ public class Matrix2x2 implements ActionListener {
         mField3.setBounds(240,20,25,100);
         mField31.setBounds(310,20,25,100);
         
-        determinantButton.setBounds(25,300,125,25);
-        determinantButton.setFocusable(false);
-        determinantButton.addActionListener(this);
+        resultButton.setBounds(100,300,100,25);
+        resultButton.setFocusable(false);
+        resultButton.addActionListener(this);
         
-        inverseButton.setBounds(150,300,100,25);
-        inverseButton.setFocusable(false);
-        inverseButton.addActionListener(this);
-        
-        finalButton.setBounds(250,300,100,25);
-        finalButton.setFocusable(false);
-        finalButton.addActionListener(this);
+        storeDataButton.setBounds(200,300,100,25);
+        storeDataButton.setFocusable(false);
+        storeDataButton.addActionListener(this);
         
         backButton.setBounds(25,15,100,25);
         backButton.setFocusable(false);
@@ -207,6 +206,7 @@ public class Matrix2x2 implements ActionListener {
         clearButton.setFocusable(false);
         clearButton.addActionListener(this);
         
+        frame.setTitle("Matrix 2x2");
         frame.add(x);
         frame.add(y);
         frame.add(equalLabel);
@@ -236,9 +236,8 @@ public class Matrix2x2 implements ActionListener {
         frame.add(mField21);
         frame.add(mField3);
         frame.add(mField31);
-        frame.add(determinantButton);
-        frame.add(inverseButton);
-        frame.add(finalButton);
+        frame.add(resultButton);
+        frame.add(storeDataButton);
         frame.add(backButton);
         frame.add(clearButton);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -256,20 +255,44 @@ public class Matrix2x2 implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
-        if(e.getSource()== determinantButton){
+        if (e.getSource()== resultButton){
             resultLabel11.setText(DeterminantA());
-            }
-        else if (e.getSource()== inverseButton){
             InverseA();
-        }
-        else if (e.getSource()== finalButton){
             FinalResult();
         }
-        else if (e.getSource()== backButton){
+        if (e.getSource() == storeDataButton) {
+            Rectangle rect = frame.getBounds();
+            try {
+               String format = "png";
+               String fileName = frame.getName() + userID + "." + format;
+               BufferedImage captureImage = new BufferedImage (rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
+               frame.paint(captureImage.getGraphics());
+               ImageIO.write(captureImage, format, new File (fileName));
+            }
+             catch (IOException  ex) {
+                Logger.getLogger(Matrix2x2.class.getName()).log(Level.SEVERE, null, ex);
+            }
+                        
+            try {
+                PreparedStatement stUpdate;
+                
+                String queryUpdate = "UPDATE users_db SET storedOperation = ? WHERE id = ?";
+                stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
+                File image = new File("frame"+ userID +".png");
+                String image1 = image.toString();
+                stUpdate.setString(1, image1);
+                stUpdate.setString(2, userID);
+                stUpdate.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Operation saved!");
+                } catch (SQLException ex) {
+                    Logger.getLogger(Matrix2x2.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
+        if (e.getSource()== backButton){
             frame.dispose();
             CalculatorMenu calculatorMenu = new CalculatorMenu(userID, adminCheck);
         }
-        else if (e.getSource()== clearButton){
+        if (e.getSource()== clearButton){
             aField.setText("");
             bField.setText("");
             cField.setText("");
@@ -285,6 +308,10 @@ public class Matrix2x2 implements ActionListener {
             resultLabel32.setText("");
         }
         
+    }
+
+    private void assertTrue(boolean exists) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

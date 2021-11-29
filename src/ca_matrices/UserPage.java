@@ -38,6 +38,7 @@ public class UserPage implements ActionListener {
         modifyProfileButton.addActionListener(this);
         calculatorButton.addActionListener(this);
         
+        frame.setTitle("User Page");
         frame.add(loginButton);
         frame.add(modifyProfileButton);
         frame.add(calculatorButton);

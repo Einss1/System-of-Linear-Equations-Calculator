@@ -35,12 +35,13 @@ public class CalculatorMenu implements ActionListener {
         x2Button.setBounds(125,75,150,25);
         x3Button.setBounds(125,125,150,25);
         
-        x3Button.setFocusable(false);
+        x2Button.setFocusable(false);
         x3Button.setFocusable(false);
         
         x2Button.addActionListener(this);
         x3Button.addActionListener(this);
         
+        frame.setTitle("Calculator Menu");
         frame.add(backButton);
         frame.add(x2Button);
         frame.add(x3Button);

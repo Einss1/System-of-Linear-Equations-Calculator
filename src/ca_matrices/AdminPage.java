@@ -48,6 +48,7 @@ public class AdminPage implements ActionListener {
     removeUsersButton.addActionListener(this);
     reviewOperationsButton.addActionListener(this);
     
+    frame.setTitle("Admin Page");
     frame.add(loginButton);
     frame.add(modifyProfileButton);
     frame.add(userListButton);
@@ -78,7 +79,8 @@ public class AdminPage implements ActionListener {
             RemoveUser removeUser = new RemoveUser(userID, adminCheck);
         }
         else if (e.getSource()== reviewOperationsButton){
-            
+            frame.dispose();
+            ReviewOperations reviewOperations = new ReviewOperations(userID, adminCheck);
         }
         else if (e.getSource()== loginButton){
             frame.dispose();

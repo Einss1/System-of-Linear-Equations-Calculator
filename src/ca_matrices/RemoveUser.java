@@ -58,6 +58,7 @@ public class RemoveUser implements ActionListener {
         removeButton.setFocusable(false);
         removeButton.addActionListener(this);
         
+        frame.setTitle("Remove User");
         frame.add(userNameLabel);
         frame.add(userNameField);
         frame.add(removeButton);

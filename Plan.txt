@@ -1,36 +1,24 @@
 * - not fundamental
 
+- Vanity stuff ( position of boxes and fields...)*
+- Change icon of application*
+
+
 General
 
-- Password verification box*
-- Min size password*
-- HashPassword*
-- Vanity stuff ( position of boxes and fields...)*
-
-- Display correct errors
-- Comment on code
+- Display correct errors {
+       -Check if fields are not empty;
+       -What to do if the variables aren't numbers;
+   }
+- Check code;
+- Comment on code;
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ModifyProfile
-
-- Check if there's a user with that username already
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-UserList
-
-- MAKE IT WORK
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-ReviewOperations
-
-- Send back to admin page
-- MAKE IT WORK
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Operations
 
 2x2
 
-- Store data in database
 - Change it to simultaneous equation
-
 
 3x3
 

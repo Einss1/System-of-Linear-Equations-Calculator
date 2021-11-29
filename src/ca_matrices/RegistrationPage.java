@@ -90,6 +90,7 @@ public class RegistrationPage implements ActionListener {
         registerButton.setFocusable(false);
         registerButton.addActionListener(this);
 
+        frame.setTitle("Registration Page");
         frame.add(userfNameLabel);
         frame.add(userlNameLabel);
         frame.add(userIDLabel);

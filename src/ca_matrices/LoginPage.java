@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import java.lang.String;
 
 
 /**
@@ -33,7 +32,7 @@ public class LoginPage implements ActionListener {
     JButton clearButton = new JButton("Clear");
     JTextField userIDField = new JTextField();
     JPasswordField userPasswordField = new JPasswordField();
-    JLabel userIDLabel = new JLabel("userID:");
+    JLabel userIDLabel = new JLabel("username:");
     JLabel userPasswordLabel = new JLabel("password:");
     
 
@@ -57,6 +56,7 @@ public class LoginPage implements ActionListener {
         clearButton.setFocusable(false);
         clearButton.addActionListener(this);
         
+        frame.setTitle("Login Page");
         frame.add(userIDLabel);
         frame.add(userPasswordLabel);
         frame.add(userIDField);
