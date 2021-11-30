@@ -2,6 +2,7 @@
 
 - Vanity stuff ( position of boxes and fields...)*
 - Change icon of application*
+- Video showing it working*
 
 
 General
@@ -12,9 +13,10 @@ General
    }
 - Check code;
 - Comment on code;
-
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 Operations
+- Try store more than just one equation per profile
 
 2x2
 
@@ -22,6 +24,4 @@ Operations
 
 3x3
 
-- Send back to calculator menu
-- Clear button
-
+- Change it to simultaneous equation

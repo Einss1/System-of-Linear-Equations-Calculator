@@ -63,7 +63,7 @@ public class CalculatorMenu implements ActionListener {
         }
         else if (e.getSource()== x3Button){
             frame.dispose();
-            Matrix3x3 x3Menu = new Matrix3x3(userID);
+            Matrix3x3 x3Menu = new Matrix3x3(userID, adminCheck);
         }
         else if (e.getSource()== backButton){
             frame.dispose();

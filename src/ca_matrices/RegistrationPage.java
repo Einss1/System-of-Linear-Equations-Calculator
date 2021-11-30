@@ -24,6 +24,7 @@ import java.util.logging.Logger;
 public class RegistrationPage implements ActionListener {
     
     JFrame frame = new JFrame();
+    JButton backButton = new JButton("Back");
     JButton clearButton = new JButton("Clear");
     JButton registerButton = new JButton("Register");
     JTextField userfNameField = new JTextField();
@@ -40,9 +41,8 @@ public class RegistrationPage implements ActionListener {
         String fname = userfNameField.getText();
         String lname = userlNameField.getText();
         String uname = userIDField.getText(); 
-        String password = String.valueOf(userPasswordField); 
         
-        if (fname.trim().equals("") || lname.trim().equals("") || uname.trim().equals("") || password.trim().equals("") ) {
+        if (fname.trim().equals("") || lname.trim().equals("") || uname.trim().equals("") || userPasswordField.getPassword().length == 0 ) {
             return false;
         }     
         else {
@@ -83,9 +83,14 @@ public class RegistrationPage implements ActionListener {
         userIDField.setBounds(125,200,200,25);
         userPasswordField.setBounds(125,250,200,25);
         
+        backButton.setBounds(25,15,100,25);
+        backButton.setFocusable(false);
+        backButton.addActionListener(this);
+        
         clearButton.setBounds(125,300,100,25);
         clearButton.setFocusable(false);
         clearButton.addActionListener(this);
+        
         registerButton.setBounds(225,300,100,25);
         registerButton.setFocusable(false);
         registerButton.addActionListener(this);
@@ -99,6 +104,7 @@ public class RegistrationPage implements ActionListener {
         frame.add(userlNameField);
         frame.add(userIDField);
         frame.add(userPasswordField);
+        frame.add(backButton);
         frame.add(clearButton);
         frame.add(registerButton);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -154,11 +160,15 @@ public class RegistrationPage implements ActionListener {
                 JOptionPane.showMessageDialog(null, "One or more fields are empty!");
             }           
         }
-        else if (e.getSource()== clearButton) {
+        if (e.getSource()== clearButton) {
             userfNameField.setText("");
             userlNameField.setText("");
             userIDField.setText("");
             userPasswordField.setText("");
+        }
+        if (e.getSource()== backButton) {
+            frame.dispose();
+            LoginPage loginPage = new LoginPage();
         }
     } 
 }

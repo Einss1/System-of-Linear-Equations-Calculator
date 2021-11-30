@@ -5,19 +5,10 @@
  */
 package ca_matrices;
 
-import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 /**
@@ -26,42 +17,37 @@ import javax.swing.JTextField;
  */
 public class ReviewOperations implements ActionListener {
     JFrame frame = new JFrame();
-    JButton storedOperationButton = new JButton("Fetch");
+    JButton review2x2Button = new JButton("Review 2x2");
+    JButton review3x3Button = new JButton("Review 3x3");
     JButton backButton = new JButton("Back");
     JTextField userIDField = new JTextField();
     JTextField adminCheckField = new JTextField();
-    JTextField userField = new JTextField();
-    JLabel userLabel = new JLabel();
-    JLabel lbl=new JLabel();
 
      ReviewOperations(String userID, String adminCheck) {
                 
          adminCheckField.setText(adminCheck);
          userIDField.setText(userID);
          
-         userLabel.setText("User id:");
-         userLabel.setBounds(250, 15, 50, 50);
-         userField.setBounds(300, 25, 50, 25);
+         review2x2Button.setBounds(155,100,100,25);
+         review2x2Button.setFocusable(false);
+         review2x2Button.addActionListener(this);
          
-         lbl.setBounds(100, 50, 420, 420);
+         review3x3Button.setBounds(155,150,100,25);
+         review3x3Button.setFocusable(false);
+         review3x3Button.addActionListener(this);
          
          backButton.setBounds(25,15,100,25);
          backButton.setFocusable(false);
          backButton.addActionListener(this);
          
-         storedOperationButton.setBounds(250,450,100,25);
-         storedOperationButton.setFocusable(false);
-         storedOperationButton.addActionListener(this);
+
          
          frame.setTitle("Review Operations");
-         frame.add(userLabel);
-         frame.add(lbl);
-         frame.setLayout(new FlowLayout());
-         frame.add(userField);
-         frame.add(storedOperationButton);
+         frame.add(review2x2Button);
+         frame.add(review3x3Button);
          frame.add(backButton);
          frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         frame.setSize(600,600);
+         frame.setSize(420,420);
          frame.setLayout(null);
          frame.setLocationRelativeTo(null);
          frame.setVisible(true);
@@ -71,17 +57,15 @@ public class ReviewOperations implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
-        if(e.getSource()== storedOperationButton){
-            try {
-                String user = userField.getText();
-                BufferedImage img=ImageIO.read(new File("frame0" + user + ".png"));
-                ImageIcon icon=new ImageIcon(img);
-                lbl.setIcon(icon);
-            } catch (IOException ex) {
-                Logger.getLogger(ReviewOperations.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        if(e.getSource()== review2x2Button){
+            frame.dispose();
+            ReviewOperations2x2 reviewOperations2x2 = new ReviewOperations2x2(userID, adminCheck);
         }
-        else if(e.getSource() == backButton){
+        if(e.getSource()== review3x3Button){
+            frame.dispose();
+            ReviewOperations3x3 reviewOperations3x3 = new ReviewOperations3x3(userID, adminCheck);
+        }
+        if(e.getSource() == backButton){
             frame.dispose();
             AdminPage adminPage = new AdminPage(userID, adminCheck);
         }

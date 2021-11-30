@@ -264,7 +264,7 @@ public class Matrix2x2 implements ActionListener {
             Rectangle rect = frame.getBounds();
             try {
                String format = "png";
-               String fileName = frame.getName() + userID + "." + format;
+               String fileName = frame.getName() + "2x2_" + userID + "." + format;
                BufferedImage captureImage = new BufferedImage (rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
                frame.paint(captureImage.getGraphics());
                ImageIO.write(captureImage, format, new File (fileName));
@@ -278,7 +278,7 @@ public class Matrix2x2 implements ActionListener {
                 
                 String queryUpdate = "UPDATE users_db SET storedOperation = ? WHERE id = ?";
                 stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
-                File image = new File("frame"+ userID +".png");
+                File image = new File("frame2x2_"+ userID +".png");
                 String image1 = image.toString();
                 stUpdate.setString(1, image1);
                 stUpdate.setString(2, userID);
