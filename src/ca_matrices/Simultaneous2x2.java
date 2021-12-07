@@ -11,7 +11,6 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import static java.lang.Float.parseFloat;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
@@ -30,6 +29,38 @@ import javax.swing.JTextField;
  */
 public class Simultaneous2x2 implements ActionListener {
 
+    public boolean verifyFields() {
+        String a = aField.getText();
+        String b = bField.getText();
+        String c = cField.getText();
+        String d = dField.getText();
+        String e = eField.getText();
+        String f = fField.getText();
+        
+        if (a.trim().equals("") || b.trim().equals("") || c.trim().equals("") || d.trim().equals("") || e.trim().equals("") || f.trim().equals("")) {
+            return false;
+        }     
+        else {
+            return true;
+        }
+    }
+    
+    public boolean verifyNumber() {
+        String a = aField.getText();
+        String b = bField.getText();
+        String c = cField.getText();
+        String d = dField.getText();
+        String e = eField.getText();
+        String f = fField.getText();
+        
+        if (a.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && b.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && c.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && d.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && e.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && f.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$")) {
+            return true;
+        }     
+        else {
+            return false;
+        }
+    }
+    
     JFrame frame = new JFrame();
     JButton backButton = new JButton("Back");
     JButton resultButton = new JButton("Result");
@@ -190,13 +221,21 @@ public class Simultaneous2x2 implements ActionListener {
         String adminCheck = adminCheckField.getText();
         
         if (e.getSource()== resultButton){
-            math();
+            if (verifyFields() == true) {
+                if (verifyNumber() == true) {
+                    math();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Numbers only please!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "One or more fields are empty!");
+            }
         }
         if (e.getSource() == storeDataButton) {
             Rectangle rect = frame.getBounds();
             try {
                String format = "png";
-               String fileName = frame.getName() + "simul2x2_" + userID + "." + format;
+               String fileName = "simul2x2_" + userID + "." + format;
                BufferedImage captureImage = new BufferedImage (rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
                frame.paint(captureImage.getGraphics());
                ImageIO.write(captureImage, format, new File (fileName));
@@ -210,7 +249,7 @@ public class Simultaneous2x2 implements ActionListener {
                 
                 String queryUpdate = "UPDATE users_db SET simul2x2 = ? WHERE id = ?";
                 stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
-                File image = new File("framesimul2x2_"+ userID +".png");
+                File image = new File("simul2x2_"+ userID +".png");
                 String image1 = image.toString();
                 stUpdate.setString(1, image1);
                 stUpdate.setString(2, userID);

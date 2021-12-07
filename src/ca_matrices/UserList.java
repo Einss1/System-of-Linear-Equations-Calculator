@@ -1,28 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca_matrices;
 
-import com.mysql.cj.xdevapi.Statement;
-import com.sun.jdi.connect.spi.Connection;
-import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JFrame;
@@ -36,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Luan
  */
+
 public class UserList implements ActionListener{
 
     JFrame frame = new JFrame();
@@ -43,8 +26,8 @@ public class UserList implements ActionListener{
     JTextField userIDField = new JTextField();
     JTextField adminCheckField = new JTextField();
     
-    
-     UserList(String userID, String adminCheck) {
+    //Creates a table with data retrieved from the database
+    UserList(String userID, String adminCheck) {
         try {
          
             PreparedStatement st;
@@ -98,10 +81,10 @@ public class UserList implements ActionListener{
             frame.setLocationRelativeTo(null);
             frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             frame.setVisible(true);
-    } catch(SQLException e) {
-        JOptionPane.showMessageDialog(null, "Something went wrong, please try again!");
+        } catch(SQLException e) {
+            JOptionPane.showMessageDialog(null, "Something went wrong, please try again!");
+        }
     }
-}
     
     @Override
     public void actionPerformed(ActionEvent e) {

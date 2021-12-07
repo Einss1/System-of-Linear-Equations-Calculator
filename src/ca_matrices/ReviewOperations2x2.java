@@ -18,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -25,6 +26,18 @@ import javax.swing.JTextField;
  * @author Luan
  */
 public class ReviewOperations2x2 implements ActionListener {
+    
+    public boolean verifyFields() {
+        String uid = userField.getText(); 
+        
+        if (uid.trim().equals("")) {
+            return false;
+        }     
+        else {
+            return true;
+        }
+    }
+    
     JFrame frame = new JFrame();
     JButton storedOperationButton = new JButton("Fetch");
     JButton backButton = new JButton("Back");
@@ -72,14 +85,18 @@ public class ReviewOperations2x2 implements ActionListener {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
         if(e.getSource()== storedOperationButton){
-            try {
+            if (verifyFields() == true) {
+                try {
                 String user = userField.getText();
-                BufferedImage img=ImageIO.read(new File("frame02x2_" + user + ".png"));
+                BufferedImage img=ImageIO.read(new File("2x2_" + user + ".png"));
                 ImageIcon icon=new ImageIcon(img);
                 lbl.setIcon(icon);
-            } catch (IOException ex) {
-                Logger.getLogger(ReviewOperations.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                } catch (IOException ex) {
+                    Logger.getLogger(ReviewOperations.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Field is empty!");
+            }     
         }
         else if(e.getSource() == backButton){
             frame.dispose();

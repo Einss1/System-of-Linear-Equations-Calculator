@@ -1,29 +1,16 @@
-* - not fundamental
-
-- Vanity stuff ( position of boxes and fields...)*
-- Change icon of application*
-- Rename variables so they represent their position (a11, a22...)*
-
-
 General
 
-- Display correct errors 
-       -Check if fields are not empty;
-       -What to do if the variables aren't numbers;
-
-- Check code;
-- Comment on code;
+- Check code for debugging;
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Report
 
 - Link to github project
-- Link to video showing application working*
+- Link to video showing application working
 - References
 
 Operations
 
-- Try store more than just one equation per file
 - Try store the file instead of just its location
 
 3x3

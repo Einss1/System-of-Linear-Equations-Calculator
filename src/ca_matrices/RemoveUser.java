@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca_matrices;
 
 import java.awt.event.ActionEvent;
@@ -31,6 +26,7 @@ public class RemoveUser implements ActionListener {
     JTextField userIDField = new JTextField();
     JTextField adminCheckField = new JTextField();
 
+    //Function to verify for empty fields
     public boolean verifyFields() {
         String uname = userNameField.getText(); 
         

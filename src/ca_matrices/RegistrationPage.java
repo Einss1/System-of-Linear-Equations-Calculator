@@ -36,7 +36,7 @@ public class RegistrationPage implements ActionListener {
     JLabel userIDLabel = new JLabel("Username:");
     JLabel userPasswordLabel = new JLabel("Password:");
    
-    
+    //Check for empty fields
     public boolean verifyFields() {
         String fname = userfNameField.getText();
         String lname = userlNameField.getText();
@@ -50,6 +50,7 @@ public class RegistrationPage implements ActionListener {
         }
     }
     
+    //Check if username already exists in database
     public boolean checkUsername(String username) throws SQLException{
         
         PreparedStatement st;

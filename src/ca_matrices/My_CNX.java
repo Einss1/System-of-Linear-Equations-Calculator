@@ -15,6 +15,7 @@ import java.util.logging.Logger;
  *
  * @author Luan
  */
+//Class to connect to database
 public class My_CNX {
     
     private static String servername = "localhost";

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca_matrices;
 
 import java.awt.event.ActionEvent;
@@ -19,29 +14,30 @@ import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Luan
+/*
+ @author Luan
  */
-public class ModifyProfile implements ActionListener {  
+
+public class ModifyProfile implements ActionListener { 
+    //Function to check if username already exists in the database
     public boolean checkUsername(String username) throws SQLException{
         
-    PreparedStatement st;
-    ResultSet rs;
-    boolean username_exist = false;
+        PreparedStatement st;
+        ResultSet rs;
+        boolean username_exist = false;
         
-    String query = "SELECT * FROM users_db WHERE username = ?";
+        String query = "SELECT * FROM users_db WHERE username = ?";
         
-    st = My_CNX.getConnection().prepareStatement(query);
-    st.setString(1, username);
-    rs = st.executeQuery();
+        st = My_CNX.getConnection().prepareStatement(query);
+        st.setString(1, username);
+        rs = st.executeQuery();
         
-    if(rs.next()){
-        username_exist = true;
-        JOptionPane.showMessageDialog(null,"Username already taken!","Username failed",2);
-    }
+        if(rs.next()){
+            username_exist = true;
+            JOptionPane.showMessageDialog(null,"Username already taken!","Username failed",2);
+        }
         
-    return username_exist;      
+        return username_exist;      
     }
     
     JFrame frame = new JFrame();
@@ -120,6 +116,7 @@ public class ModifyProfile implements ActionListener {
                             if((userNameField.getText().isEmpty()) && (fNameField.getText().isEmpty()) && (lNameField.getText().isEmpty()) && (passwordField.getPassword().length == 0 )){
                                 JOptionPane.showMessageDialog(null, "Empty fields!");
                             }
+                            //Fields that are empty are gonna be ignored and only the ones filled will update the database
                             else if ((userNameField.getText().isEmpty()) && (fNameField.getText().isEmpty()) && (lNameField.getText().isEmpty())) {
                                 PreparedStatement stUpdate;
                                 String password = String.valueOf(passwordField.getPassword());
@@ -346,10 +343,10 @@ public class ModifyProfile implements ActionListener {
         if (e.getSource()== backButton) {
             if ("1".equals(adminCheck)){
                 frame.dispose();
-                AdminPage adminPage = new AdminPage(userID, adminCheck);
+                AdminPage adminPage = new AdminPage(userID, adminCheck); //Back to admin page (in case the admin accessed this page)
             } else {
                 frame.dispose();
-                UserPage userPage = new UserPage(userID, adminCheck);
+                UserPage userPage = new UserPage(userID, adminCheck); //Back to user page (in case an user accessed this page)
             }
         }   
     }        

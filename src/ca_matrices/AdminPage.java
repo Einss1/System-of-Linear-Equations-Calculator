@@ -1,21 +1,15 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ca_matrices;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Luan
+/*
+ @author Luan
  */
+
 public class AdminPage implements ActionListener {
     JFrame frame = new JFrame();
     JButton loginButton = new JButton("Back to Login");
@@ -67,24 +61,24 @@ public class AdminPage implements ActionListener {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
         if(e.getSource()== modifyProfileButton){
-            frame.dispose();
-            ModifyProfile modifyPage = new ModifyProfile(userID, adminCheck);
+            frame.dispose(); 
+            ModifyProfile modifyPage = new ModifyProfile(userID, adminCheck); //Creates a new frame (Modify admin's profile)
         }
         else if (e.getSource()== userListButton){
             frame.dispose();
-            UserList userList = new UserList(userID, adminCheck);
+            UserList userList = new UserList(userID, adminCheck); //Creates a new frame (Database users)
         }
         else if (e.getSource()== removeUsersButton){
             frame.dispose();
-            RemoveUser removeUser = new RemoveUser(userID, adminCheck);
+            RemoveUser removeUser = new RemoveUser(userID, adminCheck); //Creates a new frame (Remove users page)
         }
         else if (e.getSource()== reviewOperationsButton){
             frame.dispose();
-            ReviewOperations reviewOperations = new ReviewOperations(userID, adminCheck);
+            ReviewOperations reviewOperations = new ReviewOperations(userID, adminCheck); //Creates a new frame (Review user operations)
         }
         else if (e.getSource()== loginButton){
             frame.dispose();
-            LoginPage loginPage = new LoginPage();
+            LoginPage loginPage = new LoginPage(); //Creates a new frame (goes back to the login menu)
         }
     }
 }

@@ -30,6 +30,44 @@ import javax.swing.JTextField;
  */
 public class Matrix3x3 implements ActionListener {
 
+    public boolean verifyFields() {
+        String a = aField.getText();
+        String b = bField.getText();
+        String c = cField.getText();
+        String e = eField.getText();
+        String f = fField.getText();
+        String g = gField.getText();
+        String i = iField.getText();
+        String j = jField.getText();
+        String k = kField.getText();
+        
+        if (a.trim().equals("") || b.trim().equals("") || c.trim().equals("") || e.trim().equals("") || f.trim().equals("") || g.trim().equals("") || i.trim().equals("") || j.trim().equals("") || k.trim().equals("")) {
+            return false;
+        }     
+        else {
+            return true;
+        }
+    }
+    
+    public boolean verifyNumber() {
+        String a = aField.getText();
+        String b = bField.getText();
+        String c = cField.getText();
+        String e = eField.getText();
+        String f = fField.getText();
+        String g = gField.getText();
+        String i = iField.getText();
+        String j = jField.getText();
+        String k = kField.getText();
+        
+        if (a.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && b.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && c.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && e.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && f.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && g.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && i.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && j.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$") && k.trim().matches("^-?([0]{1}\\.{1}[0-9]+|[1-9]{1}[0-9]*\\.{1}[0-9]+|[0-9]+|0)$")) {
+            return true;
+        }     
+        else {
+            return false;
+        }
+    }
+    
     JFrame frame = new JFrame();
     JButton backButton = new JButton("Back");
     JButton resultButton = new JButton("Result");
@@ -252,14 +290,22 @@ public class Matrix3x3 implements ActionListener {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
         if (e.getSource()== resultButton){
-            resultLabel11.setText(Determinant());
-            Inverse();
+            if (verifyFields() == true) {
+                if (verifyNumber() == true) {
+                    resultLabel11.setText(Determinant());
+                    Inverse();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Numbers only please!");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "One or more fields are empty!");
+            }   
         }
         if (e.getSource()== storeDataButton){
              Rectangle rect = frame.getBounds();
             try {
                String format = "png";
-               String fileName = frame.getName() + "3x3_" + userID + "." + format;
+               String fileName = "3x3_" + userID + "." + format;
                BufferedImage captureImage = new BufferedImage (rect.width, rect.height, BufferedImage.TYPE_INT_ARGB);
                frame.paint(captureImage.getGraphics());
                ImageIO.write(captureImage, format, new File (fileName));
@@ -273,7 +319,7 @@ public class Matrix3x3 implements ActionListener {
                 
                 String queryUpdate = "UPDATE users_db SET storedMatrix3x3 = ? WHERE id = ?";
                 stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
-                File image = new File("frame3x3_"+ userID +".png");
+                File image = new File("3x3_" + userID +".png");
                 String image1 = image.toString();
                 stUpdate.setString(1, image1);
                 stUpdate.setString(2, userID);
