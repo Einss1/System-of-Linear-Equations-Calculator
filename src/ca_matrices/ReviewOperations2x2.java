@@ -53,7 +53,7 @@ public class ReviewOperations2x2 implements ActionListener {
          storedOperationButton.setFocusable(false);
          storedOperationButton.addActionListener(this);
          
-         frame.setTitle("Review Operations 2x2");
+         frame.setTitle("Review Matrix 2x2");
          frame.add(userLabel);
          frame.add(lbl);
          frame.setLayout(new FlowLayout());

@@ -2,28 +2,29 @@
 
 - Vanity stuff ( position of boxes and fields...)*
 - Change icon of application*
-- Video showing it working*
 - Rename variables so they represent their position (a11, a22...)*
 
 
 General
 
-- Display correct errors {
+- Display correct errors 
        -Check if fields are not empty;
        -What to do if the variables aren't numbers;
-   }
+
 - Check code;
 - Comment on code;
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report
+
+- Link to github project
+- Link to video showing application working*
+- References
 
 Operations
 
 - Try store more than just one equation per file
 - Try store the file instead of just its location
-
-2x2
-
-- Add simultaneous equation
 
 3x3
 

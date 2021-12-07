@@ -24,7 +24,7 @@ import javax.swing.JTextField;
  *
  * @author Luan
  */
-public class ReviewOperations3x3 implements ActionListener {
+public class ReviewOperationsSimul2x2 implements ActionListener {
     JFrame frame = new JFrame();
     JButton storedOperationButton = new JButton("Fetch");
     JButton backButton = new JButton("Back");
@@ -34,7 +34,7 @@ public class ReviewOperations3x3 implements ActionListener {
     JLabel userLabel = new JLabel();
     JLabel lbl=new JLabel();
 
-     ReviewOperations3x3(String userID, String adminCheck) {
+     ReviewOperationsSimul2x2(String userID, String adminCheck) {
                 
          adminCheckField.setText(adminCheck);
          userIDField.setText(userID);
@@ -53,7 +53,7 @@ public class ReviewOperations3x3 implements ActionListener {
          storedOperationButton.setFocusable(false);
          storedOperationButton.addActionListener(this);
          
-         frame.setTitle("Review Matrix 3x3");
+         frame.setTitle("Review Matrix 2x2");
          frame.add(userLabel);
          frame.add(lbl);
          frame.setLayout(new FlowLayout());
@@ -74,7 +74,7 @@ public class ReviewOperations3x3 implements ActionListener {
         if(e.getSource()== storedOperationButton){
             try {
                 String user = userField.getText();
-                BufferedImage img=ImageIO.read(new File("frame03x3_" + user + ".png"));
+                BufferedImage img=ImageIO.read(new File("frame0simul2x2_" + user + ".png"));
                 ImageIcon icon=new ImageIcon(img);
                 lbl.setIcon(icon);
             } catch (IOException ex) {
