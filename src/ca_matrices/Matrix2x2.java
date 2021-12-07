@@ -45,13 +45,13 @@ public class Matrix2x2 implements ActionListener {
     JLabel resultLabel1 = new JLabel("Determinant A");
     JLabel resultLabel11 = new JLabel("");
     JLabel resultLabel2 = new JLabel("Inverse A");
-    JLabel resultLabel21 = new JLabel("");
-    JLabel resultLabel22 = new JLabel("");
-    JLabel resultLabel23 = new JLabel("");
-    JLabel resultLabel24 = new JLabel("");
+    JLabel resultLabel21 = new JLabel("a11");
+    JLabel resultLabel22 = new JLabel("a12");
+    JLabel resultLabel23 = new JLabel("a21");
+    JLabel resultLabel24 = new JLabel("a22");
     JLabel resultLabel3 = new JLabel("Result");
-    JLabel resultLabel31 = new JLabel("");
-    JLabel resultLabel32 = new JLabel("");
+    JLabel resultLabel31 = new JLabel("a11");
+    JLabel resultLabel32 = new JLabel("a21");
     JLabel equalLabel = new JLabel("=");
     JLabel mResultLabel2 = new JLabel("(");
     JLabel mResultLabel21 = new JLabel(")");
@@ -59,12 +59,8 @@ public class Matrix2x2 implements ActionListener {
     JLabel mResultLabel31 = new JLabel(")");
     JLabel mField1 = new JLabel("(");
     JLabel mField11 = new JLabel(")");
-    JLabel mField2 = new JLabel("(");
-    JLabel mField21 = new JLabel(")");
     JLabel mField3 = new JLabel("(");
     JLabel mField31 = new JLabel(")");
-    JLabel x = new JLabel("x");
-    JLabel y = new JLabel("y");
     
     public String DeterminantA() {
         int a = Integer.parseInt(aField.getText());
@@ -148,14 +144,8 @@ public class Matrix2x2 implements ActionListener {
         userIDField.setText(userID);
         
         equalLabel.setBounds(220,65,25,25);
-        x.setBounds(170,50,25,25);
-        y.setBounds(170,80,75,25);
         resultLabel1.setBounds(50,125,90,25);
         resultLabel11.setBounds(75,175,75,25);
-        mField2.setFont(new Font("Serif", Font.PLAIN, 60));
-        mField21.setFont(new Font("Serif", Font.PLAIN, 60));
-        mField2.setBounds(144,20,25,100);
-        mField21.setBounds(184,20,25,100);
         
         resultLabel2.setBounds(175,125,75,25);
         resultLabel21.setBounds(174,150,35,25);
@@ -175,16 +165,16 @@ public class Matrix2x2 implements ActionListener {
         mResultLabel3.setBounds(280,115,25,100);
         mResultLabel31.setBounds(330,115,25,100);
         
-        aField.setBounds(25,50,50,25);
-        bField.setBounds(75,50,50,25);
-        cField.setBounds(25,80,50,25);
-        dField.setBounds(75,80,50,25);
+        aField.setBounds(95,50,50,25);
+        bField.setBounds(150,50,50,25);
+        cField.setBounds(95,80,50,25);
+        dField.setBounds(150,80,50,25);
         eField.setBounds(260,50,50,25);
         fField.setBounds(260,80,50,25);
         mField1.setFont(new Font("Serif", Font.PLAIN, 60));
         mField11.setFont(new Font("Serif", Font.PLAIN, 60));
-        mField1.setBounds(5,20,25,100);
-        mField11.setBounds(125,20,25,100);
+        mField1.setBounds(75,20,25,100);
+        mField11.setBounds(195,20,25,100);
         mField3.setFont(new Font("Serif", Font.PLAIN, 60));
         mField31.setFont(new Font("Serif", Font.PLAIN, 60));
         mField3.setBounds(240,20,25,100);
@@ -207,8 +197,6 @@ public class Matrix2x2 implements ActionListener {
         clearButton.addActionListener(this);
         
         frame.setTitle("Matrix 2x2");
-        frame.add(x);
-        frame.add(y);
         frame.add(equalLabel);
         frame.add(resultLabel1);
         frame.add(resultLabel11);
@@ -232,8 +220,6 @@ public class Matrix2x2 implements ActionListener {
         frame.add(fField);
         frame.add(mField1);
         frame.add(mField11);
-        frame.add(mField2);
-        frame.add(mField21);
         frame.add(mField3);
         frame.add(mField31);
         frame.add(resultButton);
@@ -245,10 +231,10 @@ public class Matrix2x2 implements ActionListener {
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        aField.setText("var a");
-        bField.setText("var b");
-        cField.setText("var c");
-        dField.setText("var d");
+        aField.setText("a11");
+        bField.setText("a12");
+        cField.setText("a21");
+        dField.setText("a22");
     }
 
     @Override
@@ -276,7 +262,7 @@ public class Matrix2x2 implements ActionListener {
             try {
                 PreparedStatement stUpdate;
                 
-                String queryUpdate = "UPDATE users_db SET storedOperation = ? WHERE id = ?";
+                String queryUpdate = "UPDATE users_db SET storedMatrix2x2 = ? WHERE id = ?";
                 stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
                 File image = new File("frame2x2_"+ userID +".png");
                 String image1 = image.toString();

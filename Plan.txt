@@ -3,6 +3,7 @@
 - Vanity stuff ( position of boxes and fields...)*
 - Change icon of application*
 - Video showing it working*
+- Rename variables so they represent their position (a11, a22...)*
 
 
 General
@@ -16,12 +17,14 @@ General
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Operations
-- Try store more than just one equation per profile
+
+- Try store more than just one equation per file
+- Try store the file instead of just its location
 
 2x2
 
-- Change it to simultaneous equation
+- Add simultaneous equation
 
 3x3
 
-- Change it to simultaneous equation
+- Add simultaneous equation

@@ -19,8 +19,8 @@ public class CalculatorMenu implements ActionListener {
 
     JFrame frame = new JFrame();
     JButton backButton = new JButton("Back");
-    JButton x2Button = new JButton("2x2 equation");
-    JButton x3Button = new JButton("3x3 equation");
+    JButton x2Button = new JButton("2x2 Matrix");
+    JButton x3Button = new JButton("3x3 Matrix");
     JTextField userIDField = new JTextField();
     JTextField adminCheckField = new JTextField();
     
