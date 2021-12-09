@@ -1,18 +1,14 @@
 General
 
 - Check code for debugging;
+- Check if all the maths is correct;
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 Report
 
-- Link to github project
-- Link to video showing application working
 - References
 
 Operations
 
 - Try store the file instead of just its location
 
-3x3
-
-- Add simultaneous equation
