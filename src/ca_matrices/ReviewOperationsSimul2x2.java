@@ -10,7 +10,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -84,15 +89,34 @@ public class ReviewOperationsSimul2x2 implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String userID = userIDField.getText();
         String adminCheck = adminCheckField.getText();
+        String user = userField.getText();
         if(e.getSource()== storedOperationButton){
             if(verifyFields()== true) {
+                Connection con = null;
+                PreparedStatement ps=null;
                 try {
-                String user = userField.getText();
-                BufferedImage img=ImageIO.read(new File("simul2x2_" + user + ".png"));
-                ImageIcon icon=new ImageIcon(img);
-                lbl.setIcon(icon);
+                    con = My_CNX.getConnection();
+                    ps= con.prepareStatement("SELECT Simul2x2Saved FROM users_db WHERE id = ?");
+                    ps.setString(1, user);
+                    ResultSet rset=ps.executeQuery();
+               
+                    byte b[];
+                    
+                    while(rset.next()) {
+                        File f=new File("simul2x2_" + user + ".png");
+                        FileOutputStream fs = new FileOutputStream(f);
+                        java.sql.Blob blob = rset.getBlob("Simul2x2Saved");
+                        b=blob.getBytes(1, (int)blob.length());
+                        fs.write(b);
+                    }
+                    
+                    BufferedImage img=ImageIO.read(new File("simul2x2_" + user + ".png"));
+                    ImageIcon icon=new ImageIcon(img);
+                    lbl.setIcon(icon);
                 } catch (IOException ex) {
-                    Logger.getLogger(ReviewOperations.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(null, "No record found");
+                } catch (SQLException ex) {
+                    Logger.getLogger(ReviewOperationsSimul2x2.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Field is empty!");

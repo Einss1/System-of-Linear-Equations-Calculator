@@ -30,7 +30,7 @@ import javax.swing.JTextField;
  *
  * @author Luan
  */
-public class ReviewOperations3x3 implements ActionListener {
+public class ReviewOperationsSimul3x3 implements ActionListener {
     
     public boolean verifyFields() {
         String uid = userField.getText(); 
@@ -52,7 +52,7 @@ public class ReviewOperations3x3 implements ActionListener {
     JLabel userLabel = new JLabel();
     JLabel lbl=new JLabel();
 
-     ReviewOperations3x3(String userID, String adminCheck) {
+     ReviewOperationsSimul3x3(String userID, String adminCheck) {
                 
          adminCheckField.setText(adminCheck);
          userIDField.setText(userID);
@@ -91,33 +91,32 @@ public class ReviewOperations3x3 implements ActionListener {
         String adminCheck = adminCheckField.getText();
         String user = userField.getText();
         if(e.getSource()== storedOperationButton){
-            if (verifyFields() == true) {
+            if(verifyFields()== true) {
                 Connection con = null;
                 PreparedStatement ps=null;
                 try {
                     con = My_CNX.getConnection();
-                    ps= con.prepareStatement("SELECT Matrix3x3Saved FROM users_db WHERE id = ?");
+                    ps= con.prepareStatement("SELECT Simul3x3Saved FROM users_db WHERE id = ?");
                     ps.setString(1, user);
                     ResultSet rset=ps.executeQuery();
                
                     byte b[];
                     
                     while(rset.next()) {
-                        File f=new File("3x3_" + user + ".png");
+                        File f=new File("simul3x3_" + user + ".png");
                         FileOutputStream fs = new FileOutputStream(f);
-                        java.sql.Blob blob = rset.getBlob("Matrix3x3Saved");
+                        java.sql.Blob blob = rset.getBlob("Simul3x3Saved");
                         b=blob.getBytes(1, (int)blob.length());
                         fs.write(b);
                     }
                     
-                    BufferedImage img=ImageIO.read(new File("3x3_" + user + ".png"));
+                    BufferedImage img=ImageIO.read(new File("simul3x3_" + user + ".png"));
                     ImageIcon icon=new ImageIcon(img);
                     lbl.setIcon(icon);
-                    
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(null, "No record found");
                 } catch (SQLException ex) {
-                    Logger.getLogger(ReviewOperations3x3.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ReviewOperationsSimul3x3.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Field is empty!");

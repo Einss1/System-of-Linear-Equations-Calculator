@@ -11,6 +11,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -315,19 +317,24 @@ public class Matrix3x3 implements ActionListener {
             }
                         
             try {
-                PreparedStatement stUpdate;
+                PreparedStatement stUpdate = null;
                 
-                String queryUpdate = "UPDATE users_db SET storedMatrix3x3 = ? WHERE id = ?";
+                String queryUpdate = "UPDATE users_db SET Matrix3x3Saved = ? WHERE id = ?";
                 stUpdate = My_CNX.getConnection().prepareStatement(queryUpdate);
-                File image = new File("3x3_" + userID +".png");
-                String image1 = image.toString();
-                stUpdate.setString(1, image1);
-                stUpdate.setString(2, userID);
-                stUpdate.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Operation saved!");
-                } catch (SQLException ex) {
-                    Logger.getLogger(Matrix2x2.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                File image = new File("3x3_"+ userID +".png");
+                try {
+                    FileInputStream fs = new FileInputStream(image);
+                    stUpdate.setBinaryStream(1, fs, (int)image.length());
+                    stUpdate.setString(2, userID);
+                    stUpdate.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Operation saved!");
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(Matrix3x3.class.getName()).log(Level.SEVERE, null, ex);
+                } 
+                
+            }catch (SQLException ex) {
+                Logger.getLogger(Matrix3x3.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         if (e.getSource()== backButton){
             frame.dispose();
